@@ -94,3 +94,7 @@ and (max-device-width: 1000px) {
     align-items: center;
     margin-top: 5px;
 }
+
+.vjs-current-time {
+    display: inline !important;
+}

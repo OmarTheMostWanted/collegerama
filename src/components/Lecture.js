@@ -22,7 +22,8 @@ class Lecture extends React.Component {
         time: null,
         fullscreen: false,
         screenHeight: null,
-        screenWidth: null
+        screenWidth: null,
+        isPictureInPicture: false
       }
     }
 
@@ -121,6 +122,32 @@ class Lecture extends React.Component {
       })
     };
 
+    togglePictureInPicture = () => {
+      if (document.pictureInPictureElement) {
+        document
+          .exitPictureInPicture()
+          .catch(error => {
+          console.log("Couldn't exit picture in picture")
+        })
+        this.resetPictureInPicture();
+        return;
+      }
+
+      if ('pictureInPictureEnabled' in document) {
+        this.player.requestPictureInPicture();
+        this.windowToPictureInPicture();
+      }
+
+    }
+
+    windowToPictureInPicture = () => {
+      this.setState({isPictureInPicture: true});
+    }
+
+    resetPictureInPicture = () => {
+      this.setState({isPictureInPicture: false});
+    }
+
 
     componentWillUnmount() {
       if (this.player) {
@@ -141,6 +168,10 @@ class Lecture extends React.Component {
       var code = event.which;
 
       if (this.player === null) return;
+
+      if (code === 80) {
+        this.togglePictureInPicture();
+      }
 
       if (code === 39) {
         this.setTimePlayer(5);
@@ -194,12 +225,11 @@ class Lecture extends React.Component {
         var videoStyle = {
           height: 0.27*this.state.screenHeight, 
           width: isMobile ? 0.23*this.state.screenWidth : 0.48*this.state.screenHeight,
-
         }
 
         var slideStyle = {
           height: 0.60*this.state.screenHeight, 
-          width: isMobile ? 0.7*this.state.screenWidth : 0.62*this.state.screenWidth,
+          width: this.state.isPictureInPicture ? 0.9*this.state.screenWidth : (isMobile ? 0.7*this.state.screenWidth : 0.62*this.state.screenWidth),
           backgroundColor: "transparent"
         }
 
@@ -226,7 +256,7 @@ class Lecture extends React.Component {
                 
               {isMobile ? <Controls></Controls> : null}
 
-              <div className="mb-3 ml-3 videoScreen innerVideoBox position-absolute">
+              <div className="mb-3 ml-3 videoScreen innerVideoBox position-absolute" style={{display: this.state.isPictureInPicture ? "none" : "block"}}>
                   <div data-vjs-player style={videoStyle} >
                     <video ref={ node => this.videoNode = node } className="video-js"></video>
                   </div>

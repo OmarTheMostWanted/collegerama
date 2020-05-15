@@ -23,7 +23,7 @@ class Lecture extends React.Component {
         fullscreen: false,
         screenHeight: null,
         screenWidth: null,
-        isPictureInPicture: false
+        extraBig: false
       }
     }
 
@@ -122,31 +122,28 @@ class Lecture extends React.Component {
       })
     };
 
-    togglePictureInPicture = () => {
-      if (document.pictureInPictureElement) {
-        document
-          .exitPictureInPicture()
-          .catch(error => {
-          console.log("Couldn't exit picture in picture")
-        })
-        this.resetPictureInPicture();
-        return;
-      }
+    // togglePictureInPicture = () => {
+    //   if (document.pictureInPictureElement) {
+    //     document
+    //       .exitPictureInPicture()
+    //       .catch(error => {
+    //       console.log("Couldn't exit picture in picture")
+    //     })
+    //     this.resetPictureInPicture();
+    //     return;
+    //   }
 
-      if ('pictureInPictureEnabled' in document) {
-        this.player.requestPictureInPicture();
-        this.windowToPictureInPicture();
-      }
+    //   if ('pictureInPictureEnabled' in document) {
+    //     this.player.requestPictureInPicture();
+    //     this.windowToPictureInPicture();
+    //   }
 
+    // }
+
+    toggleExtraBig = () => {
+      this.setState({extraBig: !this.state.extraBig});
     }
 
-    windowToPictureInPicture = () => {
-      this.setState({isPictureInPicture: true});
-    }
-
-    resetPictureInPicture = () => {
-      this.setState({isPictureInPicture: false});
-    }
 
 
     componentWillUnmount() {
@@ -170,7 +167,7 @@ class Lecture extends React.Component {
       if (this.player === null) return;
 
       if (code === 80) {
-        this.togglePictureInPicture();
+        this.toggleExtraBig();
       }
 
       if (code === 39) {
@@ -223,13 +220,13 @@ class Lecture extends React.Component {
 
     render() {
         var videoStyle = {
-          height: 0.27*this.state.screenHeight, 
-          width: isMobile ? 0.23*this.state.screenWidth : 0.48*this.state.screenHeight,
+          height: this.state.extraBig ? 0.225*this.state.screenHeight : 0.27*this.state.screenHeight, 
+          width: isMobile ? 0.23*this.state.screenWidth : (this.state.extraBig ? 0.4*this.state.screenHeight : 0.48*this.state.screenHeight),
         }
 
         var slideStyle = {
           height: 0.60*this.state.screenHeight, 
-          width: this.state.isPictureInPicture ? 0.9*this.state.screenWidth : (isMobile ? 0.7*this.state.screenWidth : 0.62*this.state.screenWidth),
+          width: this.state.extraBig ? 0.9*this.state.screenWidth : (isMobile ? 0.7*this.state.screenWidth : 0.62*this.state.screenWidth),
           backgroundColor: "transparent"
         }
 
@@ -256,7 +253,7 @@ class Lecture extends React.Component {
                 
               {isMobile ? <Controls></Controls> : null}
 
-              <div className="mb-3 ml-3 videoScreen innerVideoBox position-absolute" style={{display: this.state.isPictureInPicture ? "none" : "block"}}>
+              <div className="mb-3 ml-3 videoScreen innerVideoBox position-absolute">
                   <div data-vjs-player style={videoStyle} >
                     <video ref={ node => this.videoNode = node } className="video-js"></video>
                   </div>

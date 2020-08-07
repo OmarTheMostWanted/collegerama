@@ -9,6 +9,19 @@ This repo is a fork of the repo [MartijnDwars/collegerama](https://github.com/Ma
 
 You can find pre-built executables for Windows and Mac [here](https://yoshi34.stackstorage.com/s/ctkUyA20YwAtowBU)
 
+### Windows instructions
+
+1. Unpack the zip file
+2. Open Collegerama.exe
+3. Go to `localhost:3000`
+
+### Mac Instructions
+1. Unpack the zip file
+2. Open CollegeramaViewer.app
+3. Go to settings -> Security & Privacy
+4. Click `Open Anyway`
+5. Go to `localhost:3000`
+
 
 ## Installation (No development)
 

@@ -1,12 +1,8 @@
 
-
-var Q = require('q');
-var request = require("request");
 const path = require('path');
 var http = require('http');
 var https = require('https');
 var fs = require('graceful-fs');
-var mkdirp = require('mkdirp');
 var utils = require('./utils.js');
 
 

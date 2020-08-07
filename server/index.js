@@ -5,7 +5,6 @@ var fs = require('graceful-fs');
 const path = require('path');
 const { fork } = require('child_process');
 var http = require('http');
-var sys = require('sys')
 var child_process = require('child_process');
 const WebSocket = require('ws');
 var cors = require('cors');
@@ -22,6 +21,14 @@ app.use(cors(corsOptions));
 app.use('/lectures',express.static(path.join(__dirname, '/../../lectures')));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(pino);
+
+// checking for windows
+
+let extension = "";
+
+if (process.platform === "win32") {
+    extension = ".exe";
+}
 
 
 
@@ -94,7 +101,17 @@ io.on('connection', function(socket) {
         }
 
         console.log(downloadExecPath);
-        out = child_process.spawn('node', [downloadExecPath, downloadId]);
+
+        try {
+            if (fs.existsSync(downloadExecPath)) {
+                out = child_process.spawn('node', [downloadExecPath, downloadId]);
+            } else {
+                out = child_process.spawn('./download' + extension, [downloadId]);
+
+            }
+          } catch(err) {
+            console.error(err)
+          }
 
         children.push(out);
 
@@ -106,6 +123,10 @@ io.on('connection', function(socket) {
             }
         });
 
+        out.stderr.on('data', (data) => {
+            console.log('stdout: ' + data);
+            
+        });
         out.on('close', (code,err) => {
             if (code === 1) {
                 console.log('stderr: ' + err);

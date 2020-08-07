@@ -6,6 +6,17 @@ const child_process = require('child_process');
 const path = require('path');
 
 
+// welcome text
+console.log("xx================================xx")
+console.log("xx                                xx")
+console.log("xx  Collegerama Offline Viewer    xx")
+console.log("xx       made by djosh34          xx")
+console.log("xx                                xx")
+console.log("xx================================xx")
+console.log("                          ")
+console.log("Please go to http://localhost:3000")
+console.log("                          ")
+
 
 
 // starting static server
@@ -17,7 +28,7 @@ const server = http.createServer((request, response) => {
 })
  
 server.listen(3000, () => {
-    console.log('Running Static server at http://localhost:3000');
+    console.log('Running static server');
 
 });
 
@@ -37,7 +48,7 @@ if (!serverExecPath.includes("server")) {
     serverExecPath = path.join(__dirname,'./server/index.js');
 }
 
-console.log(serverExecPath);
+// console.log(serverExecPath);
 
 var child = child_process.spawn('./index' + extension);
 

@@ -176,7 +176,9 @@ var slideVideo = function (data) {
 	var stream = data.d.Presentation.Streams[0];
 	var file = fs.createWriteStream(basePath + '/slide.mp4');
 
-
+	if (noVideo(data)) {
+		return;
+	}
 
 	var request = https.get(stream.VideoUrls[0].Location, function (res) {
 		res.pipe(file);
@@ -206,8 +208,18 @@ var slideVideo = function (data) {
 	});
 };
 
+var noVideo = function (data) {
+	return data.d.Presentation.Streams[1] === undefined;
+}
+
 var video = function (data) {
-	var stream = data.d.Presentation.Streams[0];
+	var stream = data.d.Presentation.Streams[1];
+
+	if (noVideo(data)) {
+		stream = data.d.Presentation.Streams[0];
+	}
+
+
 	var file = fs.createWriteStream(basePath + '/video.mp4');
 
 

@@ -7,7 +7,8 @@ This repo is a fork of the repo [MartijnDwars/collegerama](https://github.com/Ma
 
 ## Release binaries
 
-You can find pre-built executables for Windows and Mac [here](https://yoshi34.stackstorage.com/s/ctkUyA20YwAtowBU)
+You can find pre-built executables for Windows and Mac [here](https://yoshi34.stackstorage.com/s/WYkGXctExM3Ew1N1)
+Please select the latest version from the list.
 
 ### Windows instructions
 

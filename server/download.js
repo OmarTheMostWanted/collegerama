@@ -207,7 +207,7 @@ var slideVideo = function (data) {
 };
 
 var video = function (data) {
-	var stream = data.d.Presentation.Streams[1];
+	var stream = data.d.Presentation.Streams[0];
 	var file = fs.createWriteStream(basePath + '/video.mp4');
 
 

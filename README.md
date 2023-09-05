@@ -1,57 +1,105 @@
-# Collegerama
+# Collegerama Lecture Downloader
 
-## Info
+This Python script allows you to download lecture videos from Collegerama. It is a complete overhaul of the old downloader, which can be found in the branch [old-downloader](../../tree/old_downloader).
 
-Collegerama lacks a 'watch this video offline' button. This project can download lectures and its slides and can view it in your browser.
-This repo is a fork of the repo [MartijnDwars/collegerama](https://github.com/MartijnDwars/collegerama).
+## Table of Contents
+- [Installation](#installation)
+  - [Windows](#windows)
+  - [Mac](#mac)
+  - [Linux](#linux)
+- [Usage](#usage)
 
-## Release binaries
+---
 
-You can find pre-built executables for Windows and Mac [here](https://yoshi34.stackstorage.com/s/WYkGXctExM3Ew1N1)
-Please select the latest version from the list.
+## Installation
 
-### Windows instructions
+### Windows
 
-1. Unpack the zip file
-2. Open Collegerama.exe
-3. Go to `localhost:3000`
+1. **Python Installation:** If you don't have Python installed, download and install it from the official [Python website](https://www.python.org/downloads/).
 
-### Mac Instructions
-1. Unpack the zip file
-2. Open CollegeramaViewer.app
-3. Go to settings -> Security & Privacy
-4. Click `Open Anyway`
-5. Go to `localhost:3000`
+2. **WSL (Windows Subsystem for Linux):** For Windows users, you can use Windows Subsystem for Linux (WSL) to run the script. If you haven't already, follow the instructions to [install WSL](https://docs.microsoft.com/en-us/windows/wsl/install).
 
+3. **FFmpeg Installation:** Inside your WSL terminal, install FFmpeg using the package manager:
+   ```bash
+   sudo apt-get install ffmpeg
+   ```
+4. **Clone Repository:** In your WSL terminal, clone the repository using Git:
+    ```bash
+    git clone https://github.com/djosh34/collegerama.git
+   cd collegerama
+    ```
+   
+5. **Install Dependencies:** In your WSL terminal, install the required Python dependencies using pip:
+    ```bash
+    pip install requests inquirer ffmpeg-python
+    ```
 
-## Installation (No development)
+### Mac
 
-1. `git clone https://github.com/djosh34/collegerama.git`
-2. `cd collegerama`
-3. `yarn install`
-4. `yarn run start`
+1. **Python Installation:** Python should already be installed on Mac. If you don't have Python installed, download and install it from the official [Python website](https://www.python.org/downloads/).
+2. **Install Homebrew:** Install Homebrew using the instructions on the [Homebrew website](https://brew.sh/).
+3. **FFmpeg Installation:** Install FFmpeg using Homebrew in your terminal:
+   ```bash
+   brew install ffmpeg
+   ```
+4. **Clone Repository:** In your terminal, clone the repository using Git:
+    ```bash
+    git clone https://github.com/djosh34/collegerama.git
+    cd collegerama
+     ```
+5. **Install Dependencies:** In your terminal, install the required Python dependencies using pip:
+    ```bash
+    pip install requests inquirer ffmpeg-python
+    ```
+### Linux
+1. **Linux Install notes:**
 
+    Since you're using linux, you're already an extreme pro and know how installing stuff like this works. 
+ 
+    For this script you need to have the following installed:
+    - Any version of python 3 which is compatible with inquirer and ffmpeg-python
+    - ffmpeg
+    - git
+
+2. **Clone Repository:** In your terminal, clone the repository using Git:
+    ```bash
+    git clone https://github.com/djosh34/collegerama.git
+    cd collegerama
+    ```
+
+3. **Install Dependencies:** In your terminal, install the required Python dependencies using pip:
+    ```bash
+    pip install requests inquirer ffmpeg-python
+    ```
 
 ## Usage
 
-To open Collegerama offline viewer go to `localhost:3000`.
+1. **Navigate to the Script Directory:** In your terminal (WSL for Windows users), navigate to the script's directory 
 
-### Downloading new lectures
+    ```bash
+    cd path/to/collegerama
+    ```
 
-1. Find the id of the lecture you want to view (you can find it on the collegerama site)
-2. Go to `localhost:3000` 
-3. Select `Download new videos`
-4. Enter your lecture id
-5. Hit Enter
+2. **Run the Script:** Use the following command to run the script, replacing `<ID>` with the lecture's ID you want to download:
 
+   ```bash
+   python collegerama_lecture_downloader.py <ID>
+   ```
 
-### Viewing lectures
+   You can also specify an optional `--output-dir` argument to specify the directory where the downloaded video will be saved. If not provided, it will default to a "Downloads" directory within the script folder.
 
-1. Go to `localhost:3000` 
-2. Select `Search videos`
-3. Select your downloaded lecture from the list
-4. Enjoy!
+   Example with an output directory specified:
 
-## Development
+    ```bash
+   python collegerama_lecture_downloader.py <ID> --output-dir /path/to/your/directory
+    ```
 
-To run the development server run `yarn run dev`
+3. **Select Video:** The script will display available video streams, allowing you to select the one you want to download.
+   Videos with the MimeType `video/mp4` are recommended, as they are the most stable when downloading
+
+4. **Download:** The selected video will be downloaded to your specified or default output directory.
+
+Please note that this script relies on external libraries and Collegerama's website structure, which may change over time. If you encounter issues, make sure the script is up to date and report any problems to the script's repository.
+
+Enjoy downloading Collegerama lectures!
+    
